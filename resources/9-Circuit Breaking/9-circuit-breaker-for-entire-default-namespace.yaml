@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: circuit-breaker-for-entire-default-namespace
+spec:
+  host: "*.default.svc.cluster.local"
+  trafficPolicy:
+    outlierDetection: # Circuit Breaker have to switched on manually
+      consecutive5xxErrors: 2
+      interval: 10s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 100

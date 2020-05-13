@@ -1,0 +1,27 @@
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: fleetman-vehicle-telemetry
+  namespace: default
+spec:
+  hosts:
+    - fleetman-vehicle-telemetry.default.svc.cluster.local
+  http:
+    - fault:
+        abort:
+          httpStatus: 503
+          percentage:
+            value: 100
+      route:
+        - destination:
+            host: fleetman-vehicle-telemetry.default.svc.cluster.local
+
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: fleetman-vehicle-telemetry
+  namespace: default
+spec:
+  host: fleetman-vehicle-telemetry.default.svc.cluster.local
+  subsets: []

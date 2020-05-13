@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: circuit-breaker-for-staff-service
+spec:
+  host: fleetman-staff-service.default.svc.cluster.local
+  trafficPolicy:
+    outlierDetection: # Circuit Breaker have to switched on manually
+      consecutive5xxErrors: 3
+      interval: 10s           # Period for which it will monitor X number of consecutive Errors
+      baseEjectionTime: 30s   # Period for which the fault pod will be removed.
+      maxEjectionPercent: 100

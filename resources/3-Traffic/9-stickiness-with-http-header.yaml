@@ -1,0 +1,29 @@
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: set-of-routing-rules # just a name for Virtual Service
+  namespace: default
+spec:
+  hosts:
+    - fleetman-staff-service.default.svc.cluster.local # Service DNS (i.e., a regular K8S Service) name that we are applying routing rules
+  http:
+    - route:
+        - destination:
+            host: fleetman-staff-service.default.svc.cluster.local # Target DNS
+            subset: all-staff-service-pods
+---
+kind: DestinationRule  # Defining which pods should be of each subset
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: grouping-rules-for-our-photograph-canary-release
+  namespace: default
+spec:
+  host: fleetman-staff-service.default.svc.cluster.local # Service
+  trafficPolicy:
+    loadBalancer:
+      consistentHash:
+        httpHeaderName: x-myval
+  subsets:
+    - labels: # SELECTOR
+        app: staff-service # find pods with label "safe" and put it in safe-group
+      name: all-staff-service-pods

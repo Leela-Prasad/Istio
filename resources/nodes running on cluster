@@ -1,0 +1,49 @@
+master 172.20.61.240
+node1 172.20.54.56
+node2 172.20.33.227
+node3 172.20.81.202
+
+
+[ec2-user@ip-172-31-20-7 ~]$ kubectl get pod --all-namespaces -o wide
+NAMESPACE     NAME                                                                   READY   STATUS    RESTARTS   AGE     IP              NODE                                           NOMINATED NODE   READINESS GATES
+kube-system   dns-controller-776cdf4ff4-vjlfx                                        1/1     Running   0          2m52s   172.20.61.240   ip-172-20-61-240.ap-south-1.compute.internal   <none>           <none>
+kube-system   etcd-manager-events-ip-172-20-61-240.ap-south-1.compute.internal       1/1     Running   0          2m40s   172.20.61.240   ip-172-20-61-240.ap-south-1.compute.internal   <none>           <none>
+kube-system   etcd-manager-main-ip-172-20-61-240.ap-south-1.compute.internal         1/1     Running   0          2m45s   172.20.61.240   ip-172-20-61-240.ap-south-1.compute.internal   <none>           <none>
+kube-system   kops-controller-k2x2p                                                  1/1     Running   0          112s    172.20.61.240   ip-172-20-61-240.ap-south-1.compute.internal   <none>           <none>
+kube-system   kube-apiserver-ip-172-20-61-240.ap-south-1.compute.internal            1/1     Running   3          2m25s   172.20.61.240   ip-172-20-61-240.ap-south-1.compute.internal   <none>           <none>
+kube-system   kube-controller-manager-ip-172-20-61-240.ap-south-1.compute.internal   1/1     Running   0          118s    172.20.61.240   ip-172-20-61-240.ap-south-1.compute.internal   <none>           <none>
+kube-system   kube-dns-autoscaler-594dcb44b5-tf88b                                   1/1     Running   0          2m55s   100.96.1.3      ip-172-20-81-202.ap-south-1.compute.internal   <none>           <none>
+kube-system   kube-dns-b84c667f4-grwsh                                               3/3     Running   0          2m55s   100.96.1.4      ip-172-20-81-202.ap-south-1.compute.internal   <none>           <none>
+kube-system   kube-dns-b84c667f4-kkqjq                                               3/3     Running   0          91s     100.96.3.2      ip-172-20-33-227.ap-south-1.compute.internal   <none>           <none>
+kube-system   kube-proxy-ip-172-20-33-227.ap-south-1.compute.internal                1/1     Running   0          73s     172.20.33.227   ip-172-20-33-227.ap-south-1.compute.internal   <none>           <none>
+kube-system   kube-proxy-ip-172-20-54-56.ap-south-1.compute.internal                 1/1     Running   0          18s     172.20.54.56    ip-172-20-54-56.ap-south-1.compute.internal    <none>           <none>
+kube-system   kube-proxy-ip-172-20-61-240.ap-south-1.compute.internal                1/1     Running   0          93s     172.20.61.240   ip-172-20-61-240.ap-south-1.compute.internal   <none>           <none>
+kube-system   kube-proxy-ip-172-20-81-202.ap-south-1.compute.internal                1/1     Running   0          86s     172.20.81.202   ip-172-20-81-202.ap-south-1.compute.internal   <none>           <none>
+kube-system   kube-scheduler-ip-172-20-61-240.ap-south-1.compute.internal            1/1     Running   0          2m38s   172.20.61.240   ip-172-20-61-240.ap-south-1.compute.internal   <none>           <none>
+
+
+
+
+
+[ec2-user@ip-172-31-20-7 ~]$ kubectl get pod -o wide
+NAME                                   READY   STATUS    RESTARTS   AGE   IP           NODE                                           NOMINATED NODE   READINESS GATES
+api-gateway-6c879cd66-4sq5g            2/2     Running   0          75s   100.96.3.5   ip-172-20-33-227.ap-south-1.compute.internal   <none>           <none>
+position-simulator-6564858dcc-s49bv    2/2     Running   0          75s   100.96.2.4   ip-172-20-54-56.ap-south-1.compute.internal    <none>           <none>
+position-tracker-7d688c4c6c-kzlql      2/2     Running   0          75s   100.96.2.5   ip-172-20-54-56.ap-south-1.compute.internal    <none>           <none>
+staff-service-7f5f487f66-svm8g         2/2     Running   0          75s   100.96.3.7   ip-172-20-33-227.ap-south-1.compute.internal   <none>           <none>
+staff-service-risky-6c7d4d4c8c-mz9ck   2/2     Running   0          74s   100.96.1.8   ip-172-20-81-202.ap-south-1.compute.internal   <none>           <none>
+vehicle-telemetry-649bb8c5c-tsrcv      2/2     Running   0          75s   100.96.2.6   ip-172-20-54-56.ap-south-1.compute.internal    <none>           <none>
+webapp-54f689d777-4pctj                2/2     Running   0          75s   100.96.3.6   ip-172-20-33-227.ap-south-1.compute.internal   <none>           <none>
+webapp-experimental-77b59b997f-n9sfv   2/2     Running   0          75s   100.96.1.9   ip-172-20-81-202.ap-south-1.compute.internal   <none>           <none>
+
+
+
+[ec2-user@ip-172-31-20-7 ~]$ kubectl get pod -n istio-system -o wide
+NAME                                   READY   STATUS    RESTARTS   AGE    IP           NODE                                           NOMINATED NODE   READINESS GATES
+grafana-5cc7f86765-k6hds               1/1     Running   0          3m2s   100.96.1.5   ip-172-20-81-202.ap-south-1.compute.internal   <none>           <none>
+istio-egressgateway-57999c5b76-tzh5g   1/1     Running   0          3m1s   100.96.1.6   ip-172-20-81-202.ap-south-1.compute.internal   <none>           <none>
+istio-ingressgateway-968cdfcb5-vmptk   1/1     Running   0          3m1s   100.96.3.4   ip-172-20-33-227.ap-south-1.compute.internal   <none>           <none>
+istio-tracing-8584b4d7f9-vnk5g         1/1     Running   0          3m1s   100.96.2.2   ip-172-20-54-56.ap-south-1.compute.internal    <none>           <none>
+istiod-86798869b8-6v7t5                1/1     Running   0          3m     100.96.2.3   ip-172-20-54-56.ap-south-1.compute.internal    <none>           <none>
+kiali-76f556db6d-5wrrp                 1/1     Running   0          3m     100.96.3.3   ip-172-20-33-227.ap-south-1.compute.internal   <none>           <none>
+prometheus-6fd77b7876-gmqxx            2/2     Running   0          3m     100.96.1.7   ip-172-20-81-202.ap-south-1.compute.internal   <none>           <none>
